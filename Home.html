@@ -1,25 +1,35 @@
 <html ng-app = "tdwaApp">
-    <head>
-        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-        <script src = "app.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css" />
-    </head>
+<head>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
 
-    <body>
-        <div ng-controller = "todoController">
-            What do you need to do ? <input type = "text" ng-model = "todo"><br>
-            Until when ? <input type = "text" ng-model = "due"><br>
-            So...<br>
-            -> {{fullSentence()}}
-            <button class = "btn-primary" type = "button" ng-click = "addTask()">Add this!</button>
-            <ul>
-                <li ng-repeat="task in tasks">
-                    <input type = "checkbox" ng-model = "task.done">
-                    <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
-                    <button class = "btn-primary" type = "button" ng-click = "removeTask(task)">Remove</button>
-                </li>
-            </ul>
-        </div>
-    </body>
+  <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src = "app.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <script src = "ui-bootstrap-tpls-2.0.0.min.js"></script>
+
+</head>
+
+<body>
+  <div ng-controller = "datePickerController">
+    <div uib-datepicker ng-model = "datePicked" class = "well well-sm"></div>
+    {{datePicked | date : 'fullDate'}}
+  </div>
+
+
+  <div ng-controller = "todoController">
+    What do you need to do ? <input type = "text" ng-model = "todo"><br>
+    Until when ? <input type = "text" ng-model = "due"><br>
+    So...<br>
+    -> {{fullSentence()}}
+    <button class = "btn-primary" type = "button" ng-click = "addTask()">Add this!</button>
+    <ul>
+      <li ng-repeat="task in tasks">
+        <input type = "checkbox" ng-model = "task.done">
+        <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
+        <button class = "btn-primary" type = "button" ng-click = "removeTask(task)">Remove</button>
+      </li>
+    </ul>
+  </div>
+</body>
 </html>
