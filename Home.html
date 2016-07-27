@@ -11,23 +11,22 @@
 </head>
 
 <body>
-  <div ng-controller = "datePickerController">
-    <div uib-datepicker ng-model = "datePicked" class = "well well-sm"></div>
-    {{datePicked | date : 'fullDate'}}
-  </div>
-
-
   <div ng-controller = "todoController">
-    What do you need to do ? <input type = "text" ng-model = "todo"><br>
-    Until when ? <input type = "text" ng-model = "due"><br>
+    <div uib-datepicker ng-model = "datePicked" class = "well well-sm"></div>
+    Pick the date you want to add to-do list.<br>
+    ->{{datePicked | date : 'fullDate'}}<br>
+    <p>
+    What do you need to do ? <input type = "text" ng-model = "todo" placeholder="Making an awesome to do list"><br>
+    Until when ? <input type = "text" ng-model = "due" placeholder="Tomorrow"><br>
     So...<br>
     -> {{fullSentence()}}
-    <button class = "btn-primary" type = "button" ng-click = "addTask()">Add this!</button>
+    <button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">{{btnText}}</button>
+    </p>
     <ul>
       <li ng-repeat="task in tasks">
         <input type = "checkbox" ng-model = "task.done">
         <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
-        <button class = "btn-primary" type = "button" ng-click = "removeTask(task)">Remove</button>
+        <button class = "btn" type = "button" ng-click = "removeTask(task)">Remove</button>
       </li>
     </ul>
   </div>
