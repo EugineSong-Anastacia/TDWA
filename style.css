@@ -1,3 +1,16 @@
 .true{
     text-decoration: line-through;
 }
+
+.dateWarning-true{
+  color : red;
+}
+
+.dateWarning-false{
+  color : blue;
+}
+
+.dateOfList{
+  font-size: 25;
+  color : green;
+}
