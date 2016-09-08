@@ -10,6 +10,7 @@ app.controller('todoController', function todoController($scope, $filter) {
   $scope.fullDate = "";
   $scope.dateWarning = true;
 
+  // $('.clockpicker').clockpicker();
   // var newListToCalender = true;
   // var prevDateKey = "";
   var init = function() {

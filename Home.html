@@ -7,29 +7,42 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css" />
   <script src = "ui-bootstrap-tpls-2.0.0.min.js"></script>
+  <!-- <script src = "clockpicker-gh-pages/gulpfile.js"></script> -->
 
 </head>
 
 <body>
   <div ng-controller = "todoController">
-    <div uib-datepicker ng-model = "datePicked" class = "well well-sm"></div>
-    <span ng-class = "{'dateWarning-false' : !dateWarning, 'dateWarning-true' : dateWarning }">{{inputDisabling()}}<br></span>
-    ->{{fullDate}}<br>
-    <p class = "todoList">
-    What do you need to do ? <input type = "text" ng-model = "todo" placeholder="Making an awesome to do list" ng-disabled = "todoDisabled"><br>
-    Until when ? <input type = "text" ng-model = "due" placeholder="Tomorrow" ng-disabled = "dueDisabled"><br>
-    So...<br>
-    -> {{fullSentence()}}
-    <button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">{{btnText}}</button>
-    </p>
-    <ul>
-      <span class = "dateOfList">{{fullDate}}</span>
-      <li ng-repeat="task in tasks">
-        <input type = "checkbox" ng-model = "task.done">
-        <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
-        <button class = "btn" type = "button" ng-click = "removeTask(task)">Remove</button>
-      </li>
-    </ul>
+    <div class = "col-md-6">
+      <div uib-datepicker ng-model = "datePicked"></div>
+
+      <span ng-class = "{'dateWarning-false' : !dateWarning, 'dateWarning-true' : dateWarning }">{{inputDisabling()}}<br></span>
+      ->{{fullDate}}<br>
+      <p class = "todoList">
+      What do you need to do ? <input type = "text" ng-model = "todo" placeholder="Making an awesome to do list" ng-disabled = "todoDisabled"><br>
+      Until when ? <input type = "text" ng-model = "due" placeholder="Tomorrow" ng-disabled = "dueDisabled"><br>
+      So...<br>
+      -> {{fullSentence()}}
+      <button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">{{btnText}}</button>
+      </p>
+    </div>
+    <div class = "col-md-6">
+      <ul class = "todoListOnRight">
+        <span class = "dateOfList">{{fullDate}}</span>
+        <li ng-repeat="task in tasks">
+          <input type = "checkbox" ng-model = "task.done">
+          <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
+          <button class = "btn" type = "button" ng-click = "removeTask(task)">Remove</button>
+        </li>
+      </ul>
+    <div>
+    <!-- <div class="input-group clockpicker">
+    <input type="text" class="form-control" value="09:30">
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-time"></span>
+    </span> -->
+</div>
   </div>
+
 </body>
 </html>
