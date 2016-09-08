@@ -14,3 +14,19 @@
   font-size: 25;
   color : green;
 }
+
+@font-face {
+  font-family : 'handWritting-date';
+  font-weight : bold;
+  src : url("C:/Programming/TDWA/Romochka.otf") format("opentype");
+}
+
+.todoListOnRight {
+  font-family: 'handWritting-date';
+  font-size: large;
+}
+
+.dateOfList {
+  font-family: 'handWritting-date';
+  font-size: 250%;
+}
