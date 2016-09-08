@@ -18,7 +18,7 @@
 @font-face {
   font-family : 'handWritting-date';
   font-weight : bold;
-  src : url("C:/Programming/TDWA/Romochka.otf") format("opentype");
+  src : url("C:/Project/TDWA/Romochka.otf") format("opentype");
 }
 
 .todoListOnRight {
@@ -29,4 +29,8 @@
 .dateOfList {
   font-family: 'handWritting-date';
   font-size: 250%;
+}
+
+.btn-default {
+  border-color : #fff;
 }
