@@ -148,6 +148,20 @@ app.controller('todoController', function todoController($scope, $filter) {
   init();
 });
 
+//constructer for Weather
+var Weather = (function () {
+  function weatherConstructor(weatherState, weatherIcon) {
+    this.weatherState = weatherState;
+    this.weatehrIcon = weatherIcon;
+  }
+  return Weather;
+}());
+
+var cloudy = new Weather("cloudy", "C:\Project\TDWA\Icons\Weather\svg\cloudyIcon.jpg");
+var rain = new Weather("rain", "C:\Project\TDWA\Icons\Weather\svg\rainIcon.jpg");
+var snow = new Weatehr("snow", "C:\Project\TDWA\Icons\Weather\svg\snowIcon.jpg");
+var sunny = new Weather("sunny","C:\Project\TDWA\Icons\Weather\svg\sunIcon.jpg");
+var thunder = new Weather("thunder", "C:\Project\TDWA\Icons\Weather\svg\thunderIcon.jpg");
 // app.controller('datePickerController', function ($scope, $filter) {
 //   console.log($scope.datePicked);
 //   setInterval(intervalDt,1000);
