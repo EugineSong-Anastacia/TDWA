@@ -140,6 +140,16 @@ app.controller('todoController', function todoController($scope, $filter) {
     //   $scope.calenderTasks[prevDateKey] = $scope.tasks;
     // };
   });
+  //AJAX
+
+  $scope.urlBuilder = function(){
+    var apiKey = "&APPID=6e5c36e3f3e48f73098b186d62dd64f2";
+    var base = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
+    var fullUrl = base + $scope.city + apiKey ;
+    console.log(fullUrl);
+  }
+
+
 
   window.onbeforeunload = function() {
     localStorage.setItem("allTasksv2", JSON.stringify($scope.calenderTasks));
