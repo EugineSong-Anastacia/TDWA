@@ -1,6 +1,6 @@
 
 var app = angular.module('tdwaApp',['ui.bootstrap']);
-app.controller('todoController', function todoController($scope, $filter) {
+app.controller('todoController', function todoController($scope, $filter, $http) {
   // $scope.sentenceStart = "I need to do ";
   // $scope.sentenceEnd = " until ";
   $scope.btnDisabled = true;
@@ -9,7 +9,7 @@ app.controller('todoController', function todoController($scope, $filter) {
   $scope.btnText = "hmm..";
   $scope.fullDate = "";
   $scope.dateWarning = true;
-
+  $scope.weatherExtra ="";
   // $('.clockpicker').clockpicker();
   // var newListToCalender = true;
   // var prevDateKey = "";
@@ -147,9 +147,45 @@ app.controller('todoController', function todoController($scope, $filter) {
     var base = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
     var fullUrl = base + $scope.city + apiKey ;
     console.log(fullUrl);
+    weatherHandler(fullUrl);
   }
 
+  function weatherHandler(fullUrl,callback){
+    console.log("weather handler is processing");
+    console.log(fullUrl);
+    $http.get(fullUrl)
+      .then(function successCallback(response) {
+        var data = response.data;
+        console.log(data);
+        console.log("got the data, processing...")
+        //show description and the icon of the weather according to its weather code
+        if(!data) {
+          return;
+        }
 
+        var temperature = data.list[0].temp.day - 273.15;
+        console.log(temperature.toFixed(2));
+        var weatherIcon = data.list[0].weather[0].icon;
+        var weatherDescription = data.list[0].weather[0].description;
+        $scope.weatherIconUrl = weatherIcon + ".png";
+        // var img = document.getElementById("weatherIcon");
+        // img.src = weatherIconUrl;
+        console.log(weatherIcon);
+        console.log(weatherDescription);
+        var fullWeatherInfo = temperature.toFixed(2) + "°C, " + weatherDescription;
+        $scope.weatherExtra = fullWeatherInfo;
+        console.log($scope.weatherExtra);
+
+      }, function errorCallback(error){
+        console.log("Something is wrong with API data request / response. Try again.");
+        console.log(error.getAllResponseHeaders());
+      });
+      
+  }
+
+  // function weatherInfoChange(desc){
+  //   $scope.weatherExtra = desc;
+  // }
 
   window.onbeforeunload = function() {
     localStorage.setItem("allTasksv2", JSON.stringify($scope.calenderTasks));
@@ -159,19 +195,19 @@ app.controller('todoController', function todoController($scope, $filter) {
 });
 
 //constructer for Weather
-var Weather = (function () {
-  function weatherConstructor(weatherState, weatherIcon) {
-    this.weatherState = weatherState;
-    this.weatehrIcon = weatherIcon;
-  }
-  return Weather;
-}());
+// var Weather = (function () {
+//   function weatherConstructor(weatherState, weatherIcon) {
+//     this.weatherState = weatherState;
+//     this.weatehrIcon = weatherIcon;
+//   }
+//   return Weather;
+// }());
 
-var cloudy = new Weather("cloudy", "C:\Project\TDWA\Icons\Weather\svg\cloudyIcon.jpg");
-var rain = new Weather("rain", "C:\Project\TDWA\Icons\Weather\svg\rainIcon.jpg");
-var snow = new Weatehr("snow", "C:\Project\TDWA\Icons\Weather\svg\snowIcon.jpg");
-var sunny = new Weather("sunny","C:\Project\TDWA\Icons\Weather\svg\sunIcon.jpg");
-var thunder = new Weather("thunder", "C:\Project\TDWA\Icons\Weather\svg\thunderIcon.jpg");
+// var cloudy = new Weather("cloudy", "C:\Project\TDWA\Icons\Weather\svg\cloudyIcon.jpg");
+// var rain = new Weather("rain", "C:\Project\TDWA\Icons\Weather\svg\rainIcon.jpg");
+// var snow = new Weatehr("snow", "C:\Project\TDWA\Icons\Weather\svg\snowIcon.jpg");
+// var sunny = new Weather("sunny","C:\Project\TDWA\Icons\Weather\svg\sunIcon.jpg");
+// var thunder = new Weather("thunder", "C:\Project\TDWA\Icons\Weather\svg\thunderIcon.jpg");
 // app.controller('datePickerController', function ($scope, $filter) {
 //   console.log($scope.datePicked);
 //   setInterval(intervalDt,1000);
