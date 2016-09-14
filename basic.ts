@@ -1,5 +1,6 @@
 
-var app = angular.module('tdwaApp',['ui.bootstrap']);
+declare var angular : any;
+var app  = angular.module('tdwaApp',['ui.bootstrap']);
 app.controller('todoController', function todoController($scope, $filter, $http) {
   // $scope.sentenceStart = "I need to do ";
   // $scope.sentenceEnd = " until ";
@@ -13,7 +14,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   // $('.clockpicker').clockpicker();
   // var newListToCalender = true;
   // var prevDateKey = "";
-  var init = function() {
+  var init : any = function() : void{
     var fullListStored = localStorage.getItem("allTasksv2");
     // $scope.tasks = [];
     if(fullListStored){
@@ -26,7 +27,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     };
   }
 
-  $scope.inputDisabling = function() {
+  $scope.inputDisabling = function() : string {
     if($scope.datePicked){
       $scope.todoDisabled = false;
       $scope.dueDisabled = false;
@@ -49,7 +50,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   //   return dtKey;
   // };
 
-  var getDateKey = function(dt) {
+  var getDateKey :any = function(dt : any) {
     if(!dt){
       return null;
     };
@@ -63,9 +64,9 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     return dtKey;
   };
 
-  $scope.fullSentence = function(){
-    var sentenceStart = "I need to ";
-    var sentenceEnd = " until ";
+  $scope.fullSentence = function() : any{
+    var sentenceStart : String = "I need to ";
+    var sentenceEnd : String = " until ";
     if(!$scope.todo){
       $scope.btnDisabled = true;
       return "Type what you need to do !";
@@ -96,20 +97,33 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   //   $scope.tasks = JSON.parse(listT);
   // };
 
-  $scope.addTask = function() {
-    var fullTask = {
-      whatToDo : $scope.todo,
-      due : $scope.due,
-      done : false,
-    };
+  $scope.addTask = function() : void {
+    // var fullTask : Task = {
+    //   whatToDo : $scope.todo,
+    //   due : $scope.due,
+    //   done : false,
+    // };
+    var fullTask : Task = new Task($scope.todo,$scope.due,false);
     $scope.tasks.push(fullTask);
   };
 
-  $scope.removeTask = function(task) {
+  $scope.removeTask = function(task : Task) : void {
     $scope.tasks.splice($scope.tasks.indexOf(task),1);
   };
 
-  $scope.$watch('datePicked', function(newValue, oldValue) {
+  class Task {
+      whatToDo: string;
+      due: string;
+      done: boolean;
+      constructor(public todo, public time, public check){
+          this.whatToDo = todo;
+          this.due = time;
+          this.done = check;
+      }
+  }
+
+
+  $scope.$watch('datePicked', function(newValue : any, oldValue : any) : void {
     console.log("Date is changed");
     // handle undefined newValue / oldvalue
 
@@ -121,8 +135,8 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     // if (!newTasks){ calendar[newDateKey] = [] }
     // $scope.tasks = calendar[newDateKey]
 
-    var prevDateKey = getDateKey(oldValue);
-    var currentDateKey = getDateKey(newValue);
+    var prevDateKey : any = getDateKey(oldValue);
+    var currentDateKey : any = getDateKey(newValue);
     if(!prevDateKey && !currentDateKey){
       console.log("The page is loaded. Date is needed to be picked.");
     }else if(!currentDateKey){
@@ -142,20 +156,20 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   });
   //AJAX
 
-  $scope.urlBuilder = function(){
-    var apiKey = "&APPID=6e5c36e3f3e48f73098b186d62dd64f2";
-    var base = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
-    var fullUrl = base + $scope.city + apiKey ;
+  $scope.urlBuilder = function() : void{
+    var apiKey : string= "&APPID=6e5c36e3f3e48f73098b186d62dd64f2";
+    var base : string= "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
+    var fullUrl : string = base + $scope.city + apiKey ;
     console.log(fullUrl);
     weatherHandler(fullUrl);
   }
 
-  function weatherHandler(fullUrl){
+  function weatherHandler(fullUrl : string) : void {
     console.log("weather handler is processing");
     console.log(fullUrl);
     $http.get(fullUrl)
-      .then(function successCallback(response) {
-        var data = response.data;
+      .then(function successCallback(response : any) : any {
+        var data : any = response.data;
         console.log(data);
         console.log("got the data, processing...")
         //show description and the icon of the weather according to its weather code
@@ -163,20 +177,20 @@ app.controller('todoController', function todoController($scope, $filter, $http)
           return;
         }
 
-        var temperature = data.list[0].temp.day - 273.15;
+        var temperature : any = data.list[0].temp.day - 273.15;
         console.log(temperature.toFixed(2));
-        var weatherIcon = data.list[0].weather[0].icon;
-        var weatherDescription = data.list[0].weather[0].description;
+        var weatherIcon : string= data.list[0].weather[0].icon;
+        var weatherDescription : string= data.list[0].weather[0].description;
         $scope.weatherIconUrl = weatherIcon + ".png";
         // var img = document.getElementById("weatherIcon");
         // img.src = weatherIconUrl;
         console.log(weatherIcon);
         console.log(weatherDescription);
-        var fullWeatherInfo = temperature.toFixed(2) + "°C, " + weatherDescription;
+        var fullWeatherInfo : string= temperature.toFixed(2) + "°C, " + weatherDescription;
         $scope.weatherExtra = fullWeatherInfo;
         console.log($scope.weatherExtra);
 
-      }, function errorCallback(error){
+      }, function errorCallback(error : any) : void {
         console.log("Something is wrong with API data request / response. Try again.");
         console.log(error.getAllResponseHeaders());
       });
@@ -187,7 +201,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   //   $scope.weatherExtra = desc;
   // }
 
-  window.onbeforeunload = function() {
+  window.onbeforeunload = function() : void {
     localStorage.setItem("allTasksv2", JSON.stringify($scope.calenderTasks));
   };
 

@@ -1,0 +1,57 @@
+.true{
+    text-decoration: line-through;
+}
+
+.dateWarning-true{
+  color : red;
+}
+
+.dateWarning-false{
+  color : blue;
+}
+
+.dateOfList{
+  font-size: 25;
+  color : green;
+}
+
+/*@font-face {
+  font-family : 'handWritting-date';
+  font-weight : bold;
+  src : url("C:/Project/TDWA/Romochka.otf") format("opentype");
+}*/
+
+.todoListOnRight {
+  font-family: 'handWritting-date';
+  font-size: large;
+}
+
+.dateOfList {
+  font-family: 'handWritting-date';
+  font-size: 250%;
+}
+
+.btn-default {
+  border-color : #fff;
+}
+
+/*.weatherInfo {
+  position: relative;
+  display: inline-block;
+}
+
+.weatherInfo .extraInfo {
+  visibility: hidden;
+  width: 120px;
+  text-align: center;
+  top: -5px;
+  left: 105%;
+  background-color: lightpink;
+  color: black;
+  padding: 5px 0;
+  border-radius: 3px;
+}
+
+.weatherInfo:hover .extraInfo{
+  visibility: visible;
+}*/
