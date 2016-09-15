@@ -42,12 +42,14 @@
         <br>
         <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Ftodowa.azurewebsites.net&layout=button&size=large&mobile_iframe=true&width=72&height=28&appId" width="72" height="28" style="border:none;overflow:hidden" align="right" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
         <p class = "locationInput">
-          City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "urlBuilder()" class = "btn btn-default">Change City to see today's weather!</button><br>
+          City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "cityChange()" class = "btn btn-default">Change City to see today's weather!</button><br>
         </p>
         <br>
-        <img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}
+        <span class = "notification">*Please enter the valid city name starting with a capital letter. eg : New York </span>
         <br>
-        <span class = "notification">*Weather information is only available to the current date : {{currentDay}}.</span>
+        <div ng-if="weatherIconUrl"><img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}</div>
+        <br>
+        <span class = "notification">*Weather information is only available on the given range of date : {{currentDay}} - {{maxDay}}.</span>
         <br>
 
         <span class = "dateOfList">{{fullDate}}</span>
