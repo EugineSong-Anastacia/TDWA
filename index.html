@@ -42,12 +42,16 @@
         <br>
         <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Ftodowa.azurewebsites.net&layout=button&size=large&mobile_iframe=true&width=72&height=28&appId" width="72" height="28" style="border:none;overflow:hidden" align="right" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
         <p class = "locationInput">
-          City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "urlBuilder()" class = "btn btn-default">Change City!</button><br>
+          City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "urlBuilder()" class = "btn btn-default">Change City to see today's weather!</button><br>
         </p>
         <br>
-        <span class = "dateOfList">{{fullDate}}</span>
         <img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}
         <br>
+        <span class = "notification">*Weather information is only available to the current date : {{currentDay}}.</span>
+        <br>
+
+        <span class = "dateOfList">{{fullDate}}</span>
+        
         <li ng-repeat="task in tasks">
           <input type = "checkbox" ng-model = "task.done">
           <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>

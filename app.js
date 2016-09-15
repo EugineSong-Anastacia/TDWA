@@ -10,6 +10,15 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   $scope.fullDate = "";
   $scope.dateWarning = true;
   $scope.weatherExtra ="";
+  
+  var today = new Date();
+  var day = today.getDate();
+  var month = today.getMonth()+1;
+  var year = today.getFullYear();
+  $scope.currentDay = day + "/" + month + "/" + year;
+  var maxForecastDay = new Date();
+  maxForecastDay.setDate(today + 16);
+
   // $('.clockpicker').clockpicker();
   // var newListToCalender = true;
   // var prevDateKey = "";
@@ -111,6 +120,9 @@ app.controller('todoController', function todoController($scope, $filter, $http)
 
   $scope.$watch('datePicked', function(newValue, oldValue) {
     console.log("Date is changed");
+    console.log($scope.datePicked);
+    console.log(today);
+
     // handle undefined newValue / oldvalue
 
     // get dateKey for newValue and oldValue
@@ -129,11 +141,20 @@ app.controller('todoController', function todoController($scope, $filter, $http)
       console.log("Error");
     }else if(prevDateKey == currentDateKey){
       console.log("Same dates, do nothing.");
+
     }else if(prevDateKey != currentDateKey){
       var newTasks = $scope.calenderTasks[currentDateKey];
       if(!newTasks){ $scope.calenderTasks[currentDateKey] = [];};
       $scope.tasks = $scope.calenderTasks[currentDateKey];
       $scope.fullDate = $filter('date')(newValue,'fullDate');
+
+      if($scope.datePicked > today || $scope.datePicked <= maxForecastDay){
+        console.log("weather available date");
+      }else if($scope.datePicked < today){
+        console.log("upgrade to premium to see the historical weather");
+      }else if($scope.datePicked > maxForecastDay){
+        console.log("only god knows....");
+    }
     }
     // findListOfDate();
     // if(newListToCalender){
@@ -145,12 +166,12 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   $scope.urlBuilder = function(){
     var apiKey = "&APPID=6e5c36e3f3e48f73098b186d62dd64f2";
     var base = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
-    var fullUrl = base + $scope.city + apiKey ;
+    var fullUrl = base + $scope.city + apiKey +"&cnt=16";
     console.log(fullUrl);
-    weatherHandler(fullUrl);
+    weatherHandler(fullUrl,0);
   }
 
-  function weatherHandler(fullUrl){
+  function weatherHandler(fullUrl,weatherCnt){
     console.log("weather handler is processing");
     console.log(fullUrl);
     $http.get(fullUrl)
@@ -163,10 +184,10 @@ app.controller('todoController', function todoController($scope, $filter, $http)
           return;
         }
 
-        var temperature = data.list[0].temp.day - 273.15;
+        var temperature = data.list[weatherCnt].temp.day - 273.15;
         console.log(temperature.toFixed(2));
-        var weatherIcon = data.list[0].weather[0].icon;
-        var weatherDescription = data.list[0].weather[0].description;
+        var weatherIcon = data.list[weatherCnt].weather[0].icon;
+        var weatherDescription = data.list[weatherCnt].weather[0].description;
         $scope.weatherIconUrl = weatherIcon + ".png";
         // var img = document.getElementById("weatherIcon");
         // img.src = weatherIconUrl;

@@ -9,6 +9,11 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     $scope.fullDate = "";
     $scope.dateWarning = true;
     $scope.weatherExtra = "";
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1;
+    var year = today.getFullYear();
+    $scope.currentDay = day + "/" + month + "/" + year;
     // $('.clockpicker').clockpicker();
     // var newListToCalender = true;
     // var prevDateKey = "";

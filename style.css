@@ -35,6 +35,11 @@
   border-color : #fff;
 }
 
+.notification {
+  font-size: small;
+  color : gray;
+  font-style : italic;
+}
 /*.weatherInfo {
   position: relative;
   display: inline-block;
