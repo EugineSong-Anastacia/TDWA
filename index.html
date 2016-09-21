@@ -38,14 +38,18 @@
     </div>
     <div class = "col-md-6">
       <ul class = "todoListOnRight">
-        <span class = "locationInfo"><button type="button" class= "btn btn-default" data-toggle= "tooltip" title="See where you are with Google Maps!"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:50px; height:50px;"></button></span>
+        <span class = "locationInfo"><button type="button" class= "btn btn-default" data-toggle= "tooltip" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:50px; height:50px;"></a></button></span>
         <br>
         <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Ftodowa.azurewebsites.net&layout=button&size=large&mobile_iframe=true&width=72&height=28&appId" width="72" height="28" style="border:none;overflow:hidden" align="right" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
         <p class = "locationInput">
           City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "cityChange()" class = "btn btn-default">Change City to see today's weather!</button><br>
         </p>
         <br>
-        <span class = "notification">*Please enter the valid city name starting with a capital letter. eg : New York </span>
+        <p class = "notification">
+        *Please enter the valid city name starting with a capital letter. If it is not in a correct form, a weather information can be incorrect. eg : New York 
+        <br>
+        *You need to have a chosen date and city name (submitting by clicking the button on the right) to see the weather information.
+        </p>
         <br>
         <div ng-if="weatherIconUrl"><img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}</div>
         <br>
