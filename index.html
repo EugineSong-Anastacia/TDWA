@@ -3,7 +3,7 @@
   <script src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
 
   <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-  <script src = "basic.js"></script>
+  <script src = "app.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css" />
   <script src = "ui-bootstrap-tpls-2.0.0.min.js"></script>
@@ -13,7 +13,7 @@
 
 <body>
 
-  <div ng-controller = "todoController">
+  <div ng-controller = "todoController" class = "container-fluid">
       <!--<div id="fb-root"></div>
       <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -23,55 +23,104 @@
         fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
       </script>-->
-    <div class = "col-md-6">
-      <div uib-datepicker ng-model = "datePicked"></div>
-
-      <span ng-class = "{'dateWarning-false' : !dateWarning, 'dateWarning-true' : dateWarning }">{{inputDisabling()}}<br></span>
-      ->{{fullDate}}<br>
-      <p class = "todoList">
-      What do you need to do ? <input type = "text" ng-model = "todo" placeholder="Making an awesome to do list" ng-disabled = "todoDisabled"><br>
-      Until when ? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "text" ng-model = "due" placeholder="Tomorrow" ng-disabled = "dueDisabled"><br>
-      So...<br>
-      -> {{fullSentence()}}
-      <button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">{{btnText}}</button>
-      </p>
+    <div class = "row">
+      <div class = "logo">
+        (T_O_D_O_W_A)
+      </div>
     </div>
-    <div class = "col-md-6">
-      <ul class = "todoListOnRight">
-        <span class = "locationInfo"><button type="button" class= "btn btn-default" data-toggle= "tooltip" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:50px; height:50px;"></a></button></span>
-        <br>
-        <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Ftodowa.azurewebsites.net&layout=button&size=large&mobile_iframe=true&width=72&height=28&appId" width="72" height="28" style="border:none;overflow:hidden" align="right" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-        <p class = "locationInput">
-          City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "cityChange()" class = "btn btn-default">Change City to see today's weather!</button><br>
-        </p>
-        <br>
-        <p class = "notification">
-        *Please enter the valid city name starting with a capital letter. If it is not in a correct form, a weather information can be incorrect. eg : New York 
-        <br>
-        *You need to have a chosen date and city name (submitting by clicking the button on the right) to see the weather information.
-        </p>
-        <br>
-        <div ng-if="weatherIconUrl"><img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}</div>
-        <br>
-        <span class = "notification">*Weather information is only available on the given range of date : {{currentDay}} - {{maxDay}}.</span>
-        <br>
 
-        <span class = "dateOfList">{{fullDate}}</span>
-        
-        <li ng-repeat="task in tasks">
-          <input type = "checkbox" ng-model = "task.done">
-          <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
-          <button class = "btn" type = "button" ng-click = "removeTask(task)">Remove</button>
-        </li>
-      </ul>
+    <div class = "row">
+
+      <div class = "col-md-6">
+
+        <div class = "leftColumn">
+
+          <div class = "dateCalender">
+              <div style="display: inline-block;" uib-datepicker ng-model = "datePicked"></div>
+          </div>
+
+          <div class = "addTaskBar">
+            ADD TASK
+          </div>
+
+          <form class = "form-horizontal">
+
+            <div class = "form-group">
+
+              <div class = "col-md-6 col-md-offset-3">
+
+                <input class = "form-control" id = "todoInput" placeholder = "What do you need to do?">
+              </div>
+            </div> 
+
+            <div class = "form-group">
+
+              <div class = "col-md-6 col-md-offset-3">
+                
+                <input class = "form-control" id = "dueInput" placeholder = "When is it due?">
+              </div>
+            </div> 
+
+            <div class = "form-group">
+
+            </div> 
+          </form>
+
+          <!--<span ng-class = "{'dateWarning-false' : !dateWarning, 'dateWarning-true' : dateWarning }">{{inputDisabling()}}<br></span>
+          ->{{fullDate}}<br>-->
+          <!--<button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">{{btnText}}</button>-->
+          <button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">ADD</button>
+
+          <br>
+
+          <span class = "locationInfo"><button type="button" class= "btn btn-default" data-toggle= "tooltip" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:50px; height:50px;"></a></button></span>
+          <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Ftodowa.azurewebsites.net&layout=button&size=large&mobile_iframe=true&width=72&height=28&appId" width="72" height="28" style="border:none;overflow:hidden" align="right" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+          <p class = "locationInput">
+            City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "cityChange()" class = "btn btn-default">Change City to see today's weather!</button><br>
+          </p>
+          <br>
+          <p class = "notification">
+          *Please enter the valid city name starting with a capital letter. If it is not in a correct form, a weather information can be incorrect. eg : New York 
+          <br>
+          *You need to have a chosen date and city name (submitting by clicking the button on the right) to see the weather information.
+          <br>
+          *Weather information is only available on the given range of date : {{currentDay}} - {{maxDay}}.
+          </p>
+        </div>
+      </div>
+
+
+      <div class = "col-md-6">
+
+        <div class = "rightColumn">
+          <ul>
+
+            <div class = "dateAndWeather">
+
+              <div class = "mainDate">
+                <span class = "dateOfList">{{fullDate}}</span>
+              </div>
+
+              <div class = "weatherIcon">
+                <div ng-if="weatherIconUrl"><img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}</div>
+              </div>
+            </div>
+
+            <li ng-repeat="task in tasks">
+              <input type = "checkbox" ng-model = "task.done">
+              <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
+              <button class = "btn" type = "button" ng-click = "removeTask(task)">Remove</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- <div class="input-group clockpicker">
+      <input type="text" class="form-control" value="09:30">
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-time"></span>
+      </span> -->
+      <!--</div>-->
     </div>
-    <!-- <div class="input-group clockpicker">
-    <input type="text" class="form-control" value="09:30">
-    <span class="input-group-addon">
-        <span class="glyphicon glyphicon-time"></span>
-    </span> -->
-    <!--</div>-->
-  </div>
 
 </body>
 </html>
