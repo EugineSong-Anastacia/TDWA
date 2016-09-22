@@ -27,6 +27,10 @@
       <div class = "logo">
         (T_O_D_O_W_A)
       </div>
+
+      <div class = "shareFB">
+        <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Ftodowa.azurewebsites.net&layout=button&size=large&mobile_iframe=true&width=72&height=28&appId" width="72" height="28" style="border:none;overflow:hidden" align="right" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      </div>
     </div>
 
     <div class = "row">
@@ -39,7 +43,7 @@
               <div style="display: inline-block;" uib-datepicker ng-model = "datePicked"></div>
           </div>
 
-          <div class = "addTaskBar">
+          <div class = "taskBar">
             ADD TASK
           </div>
 
@@ -49,7 +53,7 @@
 
               <div class = "col-md-6 col-md-offset-3">
 
-                <input class = "form-control" id = "todoInput" placeholder = "What do you need to do?">
+                <input ng-model="todo" class = "form-control" id = "todoInput" placeholder = "What do you need to do?">
               </div>
             </div> 
 
@@ -57,7 +61,7 @@
 
               <div class = "col-md-6 col-md-offset-3">
                 
-                <input class = "form-control" id = "dueInput" placeholder = "When is it due?">
+                <input ng-model="due" class = "form-control" id = "dueInput" placeholder = "When is it due?">
               </div>
             </div> 
 
@@ -65,27 +69,61 @@
 
             </div> 
           </form>
-
           <!--<span ng-class = "{'dateWarning-false' : !dateWarning, 'dateWarning-true' : dateWarning }">{{inputDisabling()}}<br></span>
-          ->{{fullDate}}<br>-->
-          <!--<button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">{{btnText}}</button>-->
-          <button class = "btn" type = "button" ng-click = "addTask()" ng-disabled = "btnDisabled" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">ADD</button>
+          <span ng-class = "fullSentence"></span>-->
+          <!--<span class = "notification"> * You need to choose a date first and then fill in 'BOTH' text boxes to add a task.-->
+
+          <div class = "addButton">
+            <button class = "btn" type = "button" ng-click = "addTask()" title = "You need to choose a date first and then fill in 'BOTH' text boxes to add a task." ng-disabled = "!todo || !due" ng-class="{'btn-warning' : btnDisabled, 'btn-primary' : !btnDisabled}">ADD</button>
+          </div>
 
           <br>
 
-          <span class = "locationInfo"><button type="button" class= "btn btn-default" data-toggle= "tooltip" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:50px; height:50px;"></a></button></span>
-          <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Ftodowa.azurewebsites.net&layout=button&size=large&mobile_iframe=true&width=72&height=28&appId" width="72" height="28" style="border:none;overflow:hidden" align="right" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-          <p class = "locationInput">
-            City<input type = "text" ng-model="city" placeholder = "Auckland"><button type = "button" ng-click = "cityChange()" class = "btn btn-default">Change City to see today's weather!</button><br>
-          </p>
+          <div class = "taskBar">
+            WEATHER SETTINGS
+          </div>
+
+          <!--<span class = "locationInfo">
+            <button type="button" class= "btn btn-default" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:40px; height:40px;"></a></button>
+          </span>-->
+                            
+          <div class = "locationInfo">
+            <button type="button" class= "btn btn-default" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:40px; height:40px;"></a></button>
+          </div>
+
+          <div class = "locationInput">
+
+            <form class = "form-horizontal">
+
+              <div class = "form-group">
+
+                <div class = "col-md-6 col-md-offset-3">
+
+                  <input ng-model="city" class = "form-control" id = "dueInput" placeholder = "City name? eg.Auckland">
+                </div>
+              </div> 
+            </form>
+
+            <div class = "saveButton">
+              <button class = "btn btn-primary" type = "button" ng-click = "cityChange()">SAVE</button>
+            </div>
+
+            <!--<div class = "col-md-6 col-md-offset-3">
+              <input type = "text" ng-model="city" placeholder = "><button type = "button" ng-click = "cityChange()" class = "btn btn-default">SAVE</button><br>
+            </div>-->
+
+          </div>
           <br>
-          <p class = "notification">
+          <div class = "notification">
           *Please enter the valid city name starting with a capital letter. If it is not in a correct form, a weather information can be incorrect. eg : New York 
           <br>
-          *You need to have a chosen date and city name (submitting by clicking the button on the right) to see the weather information BBBB.
+          *You need to have a chosen date and city name (submitting by clicking the button on the right) to see the weather information.
           <br>
           *Weather information is only available on the given range of date : {{currentDay}} - {{maxDay}}.
-          </p>
+          </div>
+
+         
+          
         </div>
       </div>
 
@@ -98,18 +136,22 @@
             <div class = "dateAndWeather">
 
               <div class = "mainDate">
-                <span class = "dateOfList">{{fullDate}}</span>
+                <span class = "dateOfList">{{fullDate}}<span class = "weatherIcon" ng-if="weatherIconUrl"><img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}</span></span> 
               </div>
 
-              <div class = "weatherIcon">
-                <div ng-if="weatherIconUrl"><img id="weatherIcon" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}">{{weatherExtra}}</div>
-              </div>
+              <!--<div class = "weatherIcon">
+                
+              </div>-->
             </div>
 
             <li ng-repeat="task in tasks">
-              <input type = "checkbox" ng-model = "task.done">
-              <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
-              <button class = "btn" type = "button" ng-click = "removeTask(task)">Remove</button>
+              
+              <div class = "singleTask">
+                <input type = "checkbox" ng-model = "task.done">
+                <span class="{{task.done}}">{{ task.whatToDo }} , due : {{task.due}}</span>
+                <button class = "btn" type = "button" ng-click = "removeTask(task)">Remove</button>
+              </div>
+              
             </li>
           </ul>
         </div>

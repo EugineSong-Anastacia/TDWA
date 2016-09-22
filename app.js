@@ -1,9 +1,9 @@
 
 var app = angular.module('tdwaApp',['ui.bootstrap']);
+
 app.controller('todoController', function todoController($scope, $filter, $http) {
   // $scope.sentenceStart = "I need to do ";
   // $scope.sentenceEnd = " until ";
-  $scope.btnDisabled = true;
   $scope.todoDisabled = true;
   $scope.dueDisabled = true;
   $scope.btnText = "hmm..";
@@ -16,7 +16,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   // var day = today.getDate();
   // var month = today.getMonth()+1;
   // var year = today.getFullYear();
-  $scope.currentDay = dateFormatter(today)
+  $scope.currentDay = dateFormatter(today);
   var maxForecastDay = new Date();
   maxForecastDay.setDate(today.getDate() + 15);
   $scope.maxDay = dateFormatter(maxForecastDay);
@@ -34,6 +34,8 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   // var prevDateKey = "";
   var init = function() {
     var fullListStored = localStorage.getItem("allTasksv2");
+    
+    // $scope.fullDate = $filter('date')(today,'fullDate');
     // $scope.tasks = [];
     if(fullListStored){
       $scope.calenderTasks = JSON.parse(fullListStored);
@@ -43,6 +45,8 @@ app.controller('todoController', function todoController($scope, $filter, $http)
       $scope.calenderTasks = {};
       $scope.tasks = [];
     };
+
+    
   }
 
   $scope.inputDisabling = function() {
@@ -50,9 +54,9 @@ app.controller('todoController', function todoController($scope, $filter, $http)
       $scope.todoDisabled = false;
       $scope.dueDisabled = false;
       $scope.dateWarning = false;
-      return "Pick the other date if you want to add another to-do list on that day."
+      //return "Pick the other date if you want to add another to-do list on that day."
     }else if(!$scope.datePicked){
-      return "Pick the date you want to add to-do list."
+      //return "Pick the date you want to add to-do list."
     };
   };
 
@@ -80,23 +84,6 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     // $scope.fullDate = fullDate;
     var dtKey = day + date + month + year;
     return dtKey;
-  };
-
-  $scope.fullSentence = function(){
-    var sentenceStart = "I need to ";
-    var sentenceEnd = " until ";
-    if(!$scope.todo){
-      $scope.btnDisabled = true;
-      return "Type what you need to do !";
-    }else if (!$scope.due){
-      $scope.btnDisabled = true;
-      return "Write a due date !";
-    }else{
-      $scope.btnDisabled = false;
-      $scope.btnText = "Add this ! "
-      return sentenceStart + $scope.todo + sentenceEnd + $scope.due;
-    };
-    // return $scope.sentenceStart + $scope.todo + $scope.sentenceEnd + $scope.due;
   };
 
   // var findListOfDate = function(){
@@ -275,7 +262,17 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   // }
 
   window.onbeforeunload = function() {
-    localStorage.setItem("allTasksv2", JSON.stringify($scope.calenderTasks));
+    if($scope.calenderTasks && $scope.calenderTasks !== {}) {
+      var stringifiedTasks;
+      try {
+        stringifiedTasks = JSON.stringify($scope.calenderTasks);
+      } catch(e) {
+        return;
+      }
+      if(stringifiedTasks) {
+        localStorage.setItem("allTasksv2", stringifiedTasks);
+      }
+    }
   };
 
   init();

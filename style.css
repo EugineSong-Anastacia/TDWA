@@ -98,6 +98,10 @@ table {
   border-bottom : 1px solid lightseagreen;
 }
 
+.mainDate { 
+  margin-bottom : 20px;
+}
+
 .leftColumn {
   margin-top : 10px;
   text-align: center;
@@ -106,13 +110,14 @@ table {
 .dateCalender {
   margin-bottom : 20px;
 }
+
 .notification {
   font-size: small;
   color : gray;
   font-style : italic;
 }
 
-.addTaskBar {
+.taskBar {
   background-color : lightseagreen;
   /*font-family : 'ribbon';*/
   font-size : 30px;
@@ -123,6 +128,24 @@ table {
   margin-top : 20px;
 }
 
+.shareFB {
+  text-align: right;
+}
+
+.locationInfo {
+  margin : 10px;
+}
+
+.singleTask {
+  margin : 5px;
+}
+
+.weatherIcon {
+  display : inline-block;
+}
+/*.addButton {
+  margin-top : 0px;
+}*/
 /*#dueInput {
   margin-top : 5px;
 }*/
