@@ -20,7 +20,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-  font-family: 'sunnylemon'
+  font-family: 'Amaranth', sans-serif;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -62,7 +62,7 @@ table {
   font-size: 25;
 }
 
-@font-face {
+/*@font-face {
   font-family : 'ribbon';
   src: url("C:/Users/rabit/Desktop/FontTest/Ribbons-and-banners.ttf") format("truetype");
 }
@@ -71,15 +71,15 @@ table {
 @font-face {
   font-family : 'sunnylemon';
   src: url("C:/Users/rabit/Desktop/FontTest/lemon.otf") format("opentype");
-}
+}*/
 
 .logo {
-  font-family: 'ribbon';
+  font-family: 'Amaranth', sans-serif;;
   font-size : 80px;
   text-align : center;
   margin-top : 10px;
   margin-bottom : 10px;
-  padding-bottom : 35px;
+  padding-bottom : 15px;
   padding-top : 10px;
   border-bottom: 3px solid lightseagreen;
   border-top: 3px solid lightseagreen;
