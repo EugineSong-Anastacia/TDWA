@@ -7,9 +7,12 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   $scope.todoDisabled = true;
   $scope.dueDisabled = true;
   $scope.btnText = "hmm..";
-  $scope.fullDate = "";
+  // $scope.fullDate = "";
+  // var defaultToday = new Date();
+  // $scope.fullDate = $filter('date').(defaultToday,'fullDate');
   $scope.dateWarning = true;
   $scope.weatherExtra ="";
+  $scope.datePicked = new Date();
   
   var today = new Date();
   // today.setHours(0,0,0,0);
@@ -145,7 +148,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
       var newTasks = $scope.calenderTasks[currentDateKey];
       if(!newTasks){ $scope.calenderTasks[currentDateKey] = [];};
       $scope.tasks = $scope.calenderTasks[currentDateKey];
-      $scope.fullDate = $filter('date')(newValue,'fullDate');
+
     }
     
     // findListOfDate();

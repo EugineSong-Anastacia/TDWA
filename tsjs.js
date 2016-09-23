@@ -3,9 +3,10 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     $scope.todoDisabled = true;
     $scope.dueDisabled = true;
     $scope.btnText = "hmm..";
-    $scope.fullDate = "";
+    // $scope.fullDate = "";
     $scope.dateWarning = true;
     $scope.weatherExtra = "";
+    $scope.datePicked = new Date();
     var today = new Date();
     $scope.currentDay = dateFormatter(today);
     var maxForecastDay = new Date();
@@ -102,7 +103,6 @@ app.controller('todoController', function todoController($scope, $filter, $http)
             }
             ;
             $scope.tasks = $scope.calenderTasks[currentDateKey];
-            $scope.fullDate = $filter('date')(newValue, 'fullDate');
         }
     });
     //date difference calculating function

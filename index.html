@@ -82,7 +82,7 @@
           <br>
 
           <div class = "taskBar">
-            WEATHER SETTINGS
+            LOCATION SETTINGS
           </div>
 
           <!--<span class = "locationInfo">
@@ -90,7 +90,7 @@
           </span>-->
                             
           <div class = "locationInfo">
-            <button type="button" class= "btn btn-default" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:40px; height:40px;"></a></button>
+            <button type="button" class= "btn btn-default" title="See where you are with Google Maps!"><a target="_blank" href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:40px; height:40px;"></a></button>
           </div>
 
           <div class = "locationInput">
@@ -138,7 +138,7 @@
             <div class = "dateAndWeather">
 
               <div class = "mainDate">
-                <span class = "dateOfList">{{fullDate}}<span class = "weatherIcon" ng-if="weatherIconUrl"><img id="weatherIcon" uib-tooltip = "{{weatherExtra}}" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}"></span></span> 
+                <span class = "dateOfList">{{datePicked | date : "fullDate"}}<span class = "weatherIcon" ng-if="weatherIconUrl"><img id="weatherIcon" uib-tooltip = "{{weatherExtra}}" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}"></span></span> 
               </div>
 
               <!--<div class = "weatherIcon">
