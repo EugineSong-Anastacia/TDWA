@@ -143,6 +143,10 @@ table {
 .weatherIcon {
   display : inline-block;
 }
+
+.locationInput {
+  margin : 20px;
+}
 /*.addButton {
   margin-top : 0px;
 }*/

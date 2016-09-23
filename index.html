@@ -88,10 +88,10 @@
           <!--<span class = "locationInfo">
             <button type="button" class= "btn btn-default" title="See where you are with Google Maps!"><a href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:40px; height:40px;"></a></button>
           </span>-->
-                            
+<!--                            
           <div class = "locationInfo">
             <button type="button" class= "btn btn-default" title="See where you are with Google Maps!"><a target="_blank" href="https://www.google.co.nz/maps"><img src="http://i.imgur.com/Uocy4ky.jpg" style = "width:40px; height:40px;"></a></button>
-          </div>
+          </div>-->
 
           <div class = "locationInput">
 
@@ -135,7 +135,7 @@
         <div class = "rightColumn">
           <ul>
 
-            <div class = "dateAndWeather">
+            <div ng-show = "datePicked" class = "dateAndWeather">
 
               <div class = "mainDate">
                 <span class = "dateOfList">{{datePicked | date : "fullDate"}}<span class = "weatherIcon" ng-if="weatherIconUrl"><img id="weatherIcon" uib-tooltip = "{{weatherExtra}}" ng-src="http://openweathermap.org/img/w/{{weatherIconUrl}}"></span></span> 
@@ -146,7 +146,7 @@
               </div>-->
             </div>
 
-            <li ng-repeat="task in tasks">
+            <li ng-show = "tasks.length" ng-repeat="task in tasks track by $index">
               
               <div class = "singleTask">
                 <input type = "checkbox" ng-model = "task.done">

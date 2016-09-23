@@ -8,7 +8,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   // $scope.fullDate = "";
   $scope.dateWarning = true;
   $scope.weatherExtra ="";
-  $scope.datePicked = new Date();
+  $scope.datePicked = null;
   
   var today : Date = new Date();
   $scope.currentDay = dateFormatter(today);
@@ -26,15 +26,14 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   }
 
   var init : any = function() :void {
+    $scope.datePicked = new Date();
     var fullListStored : any = localStorage.getItem("allTasksv2");
     if(fullListStored){
       $scope.calenderTasks = JSON.parse(fullListStored);
     }else{
       $scope.calenderTasks = {};
-      $scope.tasks = [];
     };
-
-    
+    setTasksFromCalender(getDateKey($scope.datePicked));
   }
 
   $scope.inputDisabling = function() : void {
@@ -107,14 +106,17 @@ app.controller('todoController', function todoController($scope, $filter, $http)
 
     }else if(prevDateKey != currentDateKey){
       updateWeather();
-
-      var newTasks : any = $scope.calenderTasks[currentDateKey];
-      if(!newTasks){ $scope.calenderTasks[currentDateKey] = [];};
-      $scope.tasks = $scope.calenderTasks[currentDateKey];
-      // $scope.fullDate = $filter('date')(newValue,'fullDate');
+      setTasksFromCalender(currentDateKey);
     }
 
   });
+
+  function setTasksFromCalender(currentDateKey : any) : void {
+    var newTasks = $scope.calenderTasks[currentDateKey];
+    if(!newTasks){ $scope.calenderTasks[currentDateKey] = [];};
+    $scope.tasks = $scope.calenderTasks[currentDateKey];
+    // console.log($scope.tasks);
+  }
 
   //date difference calculating function
   function dateDiff(date1 : Date ,date2 : Date) : number{

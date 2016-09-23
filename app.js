@@ -12,7 +12,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   // $scope.fullDate = $filter('date').(defaultToday,'fullDate');
   $scope.dateWarning = true;
   $scope.weatherExtra ="";
-  $scope.datePicked = new Date();
+  $scope.datePicked = null;
   
   var today = new Date();
   // today.setHours(0,0,0,0);
@@ -36,6 +36,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
   // var newListToCalender = true;
   // var prevDateKey = "";
   var init = function() {
+    $scope.datePicked = new Date();
     var fullListStored = localStorage.getItem("allTasksv2");
     
     // $scope.fullDate = $filter('date')(today,'fullDate');
@@ -46,10 +47,11 @@ app.controller('todoController', function todoController($scope, $filter, $http)
       // findListOfDate();
     }else{
       $scope.calenderTasks = {};
-      $scope.tasks = [];
+      // $scope.tasks = [];
+      
     };
 
-    
+    setTasksFromCalender(getDateKey($scope.datePicked));
   }
 
   $scope.inputDisabling = function() {
@@ -145,9 +147,7 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     }else if(prevDateKey != currentDateKey){
       updateWeather();
 
-      var newTasks = $scope.calenderTasks[currentDateKey];
-      if(!newTasks){ $scope.calenderTasks[currentDateKey] = [];};
-      $scope.tasks = $scope.calenderTasks[currentDateKey];
+      setTasksFromCalender(currentDateKey);
 
     }
     
@@ -156,6 +156,14 @@ app.controller('todoController', function todoController($scope, $filter, $http)
     //   $scope.calenderTasks[prevDateKey] = $scope.tasks;
     // };
   });
+
+  function setTasksFromCalender(currentDateKey){
+    var newTasks = $scope.calenderTasks[currentDateKey];
+    if(!newTasks){ $scope.calenderTasks[currentDateKey] = [];};
+    $scope.tasks = $scope.calenderTasks[currentDateKey];
+
+    console.log($scope.tasks);
+  }
 
   //date difference calculating function
   function dateDiff(date1,date2){
